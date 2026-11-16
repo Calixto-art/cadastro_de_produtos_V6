@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Estoque - POO</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="cabecalho">
+            <h1>Cadastro de Produtos</h1>
+            <button type="button" id="btn-bootstrap" class="btn-bootstrap">Ver Conceito Bootstrap</button>
+        </header>
+
+        <!-- Formulário de Entrada -->
+        <form id="produto-form" novalidate>
+            <div class="form-group">
+                <label for="nome">Nome do produto:</label>
+                <input type="text" id="nome" placeholder="Ex. Notebook"/>
+            </div>
+
+            <div class="form-group">
+                <label for="preco">Preço (R$):</label>
+                <input type="number" id="preco" step="0.01" placeholder="Ex. 3500.00"/>
+            </div>
+
+            <div class="form-group">
+                <label for="quantidade">Quantidade:</label>
+                <input type="number" id="quantidade" placeholder="Ex. 5"/>
+            </div>
+
+            <div id="mensagem-erro" class="mensagem-erro" role="alert" hidden></div>
+
+            <div class="botoes-formulario">
+                <button type="submit" class="btn-primary" id="btn-salvar">Adicionar Produto</button>
+                <button type="button" class="btn-cancelar" id="btn-cancelar" hidden>Cancelar edição</button>
+            </div>
+        </form>
+
+        <!-- Cabeçalho de Ações e Resumo -->
+        <div class="resumo-container">
+            <h3 id="total-estoque">Total em Estoque: R$0,00</h3>
+            <button id="limpar-tabela" class="btn-danger">Limpar</button>
+        </div>
+
+        <!-- V6: Busca + seletor de ordenação lado a lado -->
+        <div class="busca-container">
+            <input type="text" id="campo-busca" placeholder="🔍 Pesquisar produto pelo nome..." aria-label="Pesquisar produto pelo nome" />
+            <select id="seletor-ordenacao" aria-label="Ordenar produtos">
+                <option value="padrao">Padrão (Cadastro)</option>
+                <option value="menor-quantidade">Menor Quantidade</option>
+                <option value="maior-preco">Maior Preço</option>
+                <option value="menor-preco">Menor Preço</option>
+                <option value="alfabetica">Ordem Alfabética (A–Z)</option>
+            </select>
+        </div>
+
+        <!-- V6: Exportação e backup -->
+        <div class="ferramentas" role="group" aria-label="Exportação e backup">
+            <button type="button" id="btn-exportar-csv" class="btn-secundario">Exportar CSV</button>
+            <button type="button" id="btn-baixar-backup" class="btn-secundario">Baixar Backup</button>
+            <button type="button" id="btn-restaurar-backup" class="btn-secundario">Restaurar Backup</button>
+            <!-- Input de arquivo escondido: o botão acima abre o seletor -->
+            <input type="file" id="input-restaurar" accept=".json,application/json" aria-label="Selecionar arquivo de backup JSON" hidden />
+        </div>
+
+        <!-- Tabela de Exibição -->
+        <table id="tabela-produtos">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                    <th>Qtd</th>
+                    <th>Subtotal</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- As linhas da tabela serão inseridas através do JS -->
+            </tbody>
+        </table>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+    <div id="modal-confirmacao" class="modal-overlay" hidden>
+        <div class="modal" role="dialog" aria-modal="true"
+             aria-labelledby="modal-confirmacao-titulo" aria-describedby="modal-confirmacao-texto">
+            <h2 id="modal-confirmacao-titulo"></h2>
+            <p id="modal-confirmacao-texto"></p>
+            <div class="modal-acoes">
+                <button type="button" id="modal-btn-cancelar" class="btn-cancelar">Cancelar</button>
+                <button type="button" id="modal-btn-confirmar" class="btn-danger">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-bootstrap" class="modal-overlay" hidden>
+        <div class="modal modal-largo" role="dialog" aria-modal="true" aria-labelledby="modal-bootstrap-titulo">
+            <h2 id="modal-bootstrap-titulo"></h2>
+            <div id="modal-bootstrap-corpo" class="modal-corpo"></div>
+            <div class="modal-acoes">
+                <button type="button" id="modal-bootstrap-fechar" class="btn-primary">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
